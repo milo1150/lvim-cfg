@@ -166,10 +166,13 @@ lvim.plugins = {
   { "lunarVim/Colorschemes" },
   { "folke/tokyonight.nvim" },
   { "arcticicestudio/nord-vim" },
+  { "EdenEast/nightfox.nvim" },
   {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
+  { "fatih/vim-go" },
+  { "preservim/tagbar" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
