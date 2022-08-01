@@ -72,6 +72,12 @@ lvim.builtin.which_key.mappings["t"] = {
   -- t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
 }
 
+lvim.builtin.which_key.mappings["B"] = {
+  name = "Buffer Custom",
+  n = { "<cmd>BufferLineMoveNext<cr>", "BufferLineMoveNext" },
+  p = { "<cmd>BufferLineMovePrev<cr>", "BufferLineMovePrev" },
+}
+
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
@@ -180,6 +186,13 @@ lvim.plugins = {
   },
   { "fatih/vim-go" },
   { "preservim/tagbar" },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
