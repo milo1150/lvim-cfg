@@ -11,9 +11,9 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
-
 lvim.colorscheme = "tokyonight"
 vim.g.tokyonight_style = "night"
+vim.opt.relativenumber = true
 
 
 
@@ -143,9 +143,9 @@ formatters.setup {
     command = "prettier",
     ---@usage arguments to pass to the formatter
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-    args = { "--print-with", "100" },
+    args = { "--print-with=100", "--tab-width=2", "--end-of-line=auto" },
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "typescriptreact" },
+    filetypes = { "typescript", "typescriptreact", "vue" },
   },
 }
 
