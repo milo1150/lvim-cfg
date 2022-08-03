@@ -20,6 +20,7 @@ vim.opt.relativenumber = true
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
+
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
 -- add your own keymapping
@@ -193,6 +194,7 @@ lvim.plugins = {
       require("todo-comments").setup()
     end,
   },
+  { "mg979/vim-visual-multi" }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
