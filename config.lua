@@ -74,9 +74,9 @@ lvim.builtin.which_key.mappings["t"] = {
 }
 
 lvim.builtin.which_key.mappings["B"] = {
-  name = "Buffer Custom",
-  n = { "<cmd>BufferLineMoveNext<cr>", "BufferLineMoveNext" },
-  p = { "<cmd>BufferLineMovePrev<cr>", "BufferLineMovePrev" },
+  name = "Buffers Custom",
+  k = { "<cmd>BufferLineMoveNext<cr>", "BufferLineMoveNext" },
+  j = { "<cmd>BufferLineMovePrev<cr>", "BufferLineMovePrev" },
 }
 
 -- TODO: User Config for predefined plugins
@@ -102,6 +102,9 @@ lvim.builtin.treesitter.ensure_installed = {
   "rust",
   "java",
   "yaml",
+  "svelte",
+  "vue",
+  "go"
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
@@ -146,7 +149,7 @@ formatters.setup {
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
     args = { "--print-with=100", "--tab-width=2", "--end-of-line=auto" },
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "typescriptreact", "vue" },
+    filetypes = { "typescript", "scss", "css", "vue" },
   },
 }
 
@@ -187,13 +190,13 @@ lvim.plugins = {
   },
   { "fatih/vim-go" },
   { "preservim/tagbar" },
-  {
-    "folke/todo-comments.nvim",
-    event = "BufRead",
-    config = function()
-      require("todo-comments").setup()
-    end,
-  },
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   event = "BufRead",
+  --   config = function()
+  --     require("todo-comments").setup()
+  --   end,
+  -- },
   { "mg979/vim-visual-multi" }
 }
 
