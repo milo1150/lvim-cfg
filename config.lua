@@ -15,7 +15,16 @@ lvim.colorscheme = "tokyonight"
 vim.g.tokyonight_style = "night"
 vim.opt.relativenumber = true
 
-
+-- Custom Core Plugins
+-- Bufferline
+lvim.builtin.bufferline.options.separator_style = 'padded_slant'
+-- Lualine
+lvim.builtin.lualine.options.globalstatus = true
+lvim.builtin.lualine.options.theme = 'dracula'
+lvim.builtin.lualine.sections.lualine_a = { 'mode' }
+lvim.builtin.lualine.sections.lualine_b = { 'branch' }
+lvim.builtin.lualine.sections.lualine_y = { 'encoding' }
+lvim.builtin.lualine.sections.lualine_z = { 'progress', 'location' }
 
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -198,7 +207,8 @@ lvim.plugins = {
   --     require("todo-comments").setup()
   --   end,
   -- },
-  { "mg979/vim-visual-multi" }
+  { "mg979/vim-visual-multi" },
+  { "ap/vim-css-color" }
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
