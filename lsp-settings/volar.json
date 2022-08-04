@@ -1,5 +1,4 @@
 {
   "volar.icon.preview": true,
-  "volar.completion.preferredAttrNameCase": "kebab",
-  "volar.takeOverMode.enabled": true
+  "volar.completion.preferredAttrNameCase": "kebab"
 }
