@@ -10,7 +10,7 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = true
+lvim.format_on_save = false
 lvim.colorscheme = "tokyonight"
 vim.g.tokyonight_style = "night"
 vim.opt.relativenumber = true
@@ -137,14 +137,52 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- generic LSP settings
 
 -- ---@usage disable automatic installation of servers
-lvim.lsp.automatic_servers_installation = false
+lvim.lsp.automatic_servers_installation = true
 
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
----see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "vim" })
+-- see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 -- check the lspconfig documentation for a list of all possible options
--- local volaropts = {}
--- require("lvim.lsp.manager").setup("pyright", volaropts)
+-- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "volar" })
+-- local volar_opts = {
+--   documentFeatures = {
+--     documentColor = false,
+--     documentFormatting = {
+--       defaultPrintWidth = 80
+--     },
+--     documentSymbol = true,
+--     foldingRange = true,
+--     linkedEditingRange = true,
+--     selectionRange = true
+--   },
+--   languageFeatures = {
+--     callHierarchy = true,
+--     codeAction = true,
+--     codeLens = true,
+--     completion = {
+--       defaultAttrNameCase = "kebabCase",
+--       defaultTagNameCase = "both"
+--     },
+--     definition = true,
+--     diagnostics = true,
+--     documentHighlight = true,
+--     documentLink = true,
+--     hover = true,
+--     implementation = true,
+--     references = true,
+--     rename = true,
+--     renameFileRefactoring = true,
+--     schemaRequestService = true,
+--     semanticTokens = false,
+--     signatureHelp = true,
+--     typeDefinition = true
+--   },
+--   typescript = {
+--     serverPath = ""
+--   }
+-- }
+-- require("lvim.lsp.manager").setup("volar", volar_opts)
+-- local tsserver_opts = {}
+-- require("lvim.lsp.manager").setup("tsserver", tsserver_opts)
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 -- -`:LvimInfo` lists which server(s) are skiipped for the current filetype
@@ -162,7 +200,7 @@ lvim.lsp.automatic_servers_installation = false
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- -- set a formatter, this will override the language server formatting capabilities (if it exists)
+-- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   -- { command = "black", filetypes = { "python" } },
@@ -171,9 +209,9 @@ formatters.setup {
     command = "prettier",
     ---@usage arguments to pass to the formatter
     -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-    args = {},
+    args = { "--line-width=80", "--end-of-line=auto" },
     ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "vue", "typescript", "scss", "css" },
+    filetypes = { "typescript", "vue", "scss", "css" },
   },
 }
 
