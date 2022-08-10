@@ -142,45 +142,45 @@ lvim.lsp.automatic_servers_installation = true
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 -- see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 -- check the lspconfig documentation for a list of all possible options
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "volar" })
--- local volar_opts = {
---   documentFeatures = {
---     documentColor = false,
---     documentFormatting = {
---       defaultPrintWidth = 80
---     },
---     documentSymbol = true,
---     foldingRange = true,
---     linkedEditingRange = true,
---     selectionRange = true
---   },
---   languageFeatures = {
---     callHierarchy = true,
---     codeAction = true,
---     codeLens = true,
---     completion = {
---       defaultAttrNameCase = "kebabCase",
---       defaultTagNameCase = "both"
---     },
---     definition = true,
---     diagnostics = true,
---     documentHighlight = true,
---     documentLink = true,
---     hover = true,
---     implementation = true,
---     references = true,
---     rename = true,
---     renameFileRefactoring = true,
---     schemaRequestService = true,
---     semanticTokens = false,
---     signatureHelp = true,
---     typeDefinition = true
---   },
---   typescript = {
---     serverPath = ""
---   }
--- }
--- require("lvim.lsp.manager").setup("volar", volar_opts)
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "volar" })
+local volar_opts = {
+  documentFeatures = {
+    documentColor = true,
+    documentFormatting = {
+      defaultPrintWidth = 40
+    },
+    documentSymbol = true,
+    foldingRange = true,
+    linkedEditingRange = true,
+    selectionRange = true
+  },
+  languageFeatures = {
+    -- callHierarchy = true,
+    -- codeAction = true,
+    -- codeLens = true,
+    completion = {
+      defaultAttrNameCase = "kebabCase",
+      defaultTagNameCase = "both"
+    },
+  --   definition = true,
+  --   diagnostics = true,
+  --   documentHighlight = true,
+  --   documentLink = true,
+  --   hover = true,
+  --   implementation = true,
+  --   references = true,
+  --   rename = true,
+  --   renameFileRefactoring = true,
+  --   schemaRequestService = true,
+  --   semanticTokens = false,
+  --   signatureHelp = true,
+  --   typeDefinition = true
+  -- },
+  -- typescript = {
+  --   serverPath = ""
+  }
+}
+require("lvim.lsp.manager").setup("volar", volar_opts)
 -- local tsserver_opts = {}
 -- require("lvim.lsp.manager").setup("tsserver", tsserver_opts)
 
@@ -203,29 +203,29 @@ lvim.lsp.automatic_servers_installation = true
 -- set a formatter, this will override the language server formatting capabilities (if it exists)
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
-  -- { command = "black", filetypes = { "python" } },
   {
-    --   -- each formatter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
     command = "prettier",
-    ---@usage arguments to pass to the formatter
-    -- these cannot contain whitespaces, options such as `--line-width 80` become either `{'--line-width', '80'}` or `{'--line-width=80'}`
-    args = { "--line-width=80", "--end-of-line=auto" },
-    ---@usage specify which filetypes to enable. By default a providers will attach to all the filetypes it supports.
-    filetypes = { "typescript", "vue", "scss", "css" },
+    args = {},
+    filetypes = { "typescript" },
+  },
+  {
+    command = "prettier",
+    args = {},
+    filetypes = { "vue", "scss", "css" },
   },
 }
 
--- lvim.lsp.on_attach_callback = function(client, _)
---   if client.name == "tsserver" or client.name == "jsonls" then
---     client.resolved_capabilities.document_formatting = false
---     client.resolved_capabilities.document_range_formatting = false
---   end
--- end
+lvim.lsp.on_attach_callback = function(client, _)
+  if client.name == "tsserver" or client.name == "jsonls" then
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+  end
+end
 
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  { command = "flake8", filetypes = { "python" } },
+  -- { command = "flake8", filetypes = { "python" } },
   { command = "eslint", filetypes = { "vue", "typescript" } },
   -- {
   --   -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -253,13 +253,13 @@ lvim.plugins = {
   },
   { "fatih/vim-go" },
   { "preservim/tagbar" },
-  -- {
-  --   "folke/todo-comments.nvim",
-  --   event = "BufRead",
-  --   config = function()
-  --     require("todo-comments").setup()
-  --   end,
-  -- },
+  {
+    "folke/todo-comments.nvim",
+    event = "BufRead",
+    config = function()
+      require("todo-comments").setup()
+    end,
+  },
   { "mg979/vim-visual-multi" },
   { "ap/vim-css-color" }
 }
