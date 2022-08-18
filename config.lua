@@ -74,6 +74,7 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
+vim.keymap.set('n', '<space>F', vim.lsp.buf.formatting)
 lvim.builtin.which_key.mappings["y"] = {
   name = "+Trouble",
   r = { "<cmd>Trouble lsp_references<cr>", "References" },
@@ -111,6 +112,7 @@ lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
+lvim.builtin.treesitter.autotag.enable = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -162,27 +164,33 @@ local volar_opts = {
       defaultAttrNameCase = "kebabCase",
       defaultTagNameCase = "both"
     },
-  --   definition = true,
-  --   diagnostics = true,
-  --   documentHighlight = true,
-  --   documentLink = true,
-  --   hover = true,
-  --   implementation = true,
-  --   references = true,
-  --   rename = true,
-  --   renameFileRefactoring = true,
-  --   schemaRequestService = true,
-  --   semanticTokens = false,
-  --   signatureHelp = true,
-  --   typeDefinition = true
-  -- },
-  -- typescript = {
-  --   serverPath = ""
+    --   definition = true,
+    diagnostics = true,
+    --   documentHighlight = true,
+    documentLink = true,
+    hover = true,
+    --   implementation = true,
+    references = true,
+    --   rename = true,
+    --   renameFileRefactoring = true,
+    --   schemaRequestService = true,
+    --   semanticTokens = false,
+    --   signatureHelp = true,
+    typeDefinition = true
+    -- },
+    -- typescript = {
+    --   serverPath = ""
   }
 }
 require("lvim.lsp.manager").setup("volar", volar_opts)
--- local tsserver_opts = {}
--- require("lvim.lsp.manager").setup("tsserver", tsserver_opts)
+
+require 'lspconfig'.tsserver.setup {}  -- TODO: if enable this, mefarm-frontend will formet error, but .ts file will work
+local tsserver_opts = {
+  cmd = { "typescript-language-server" },
+  filetype = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+  root_pattern = { "package.json", "tsconfig.json", "jsconfig.json", ".git" }
+}
+require("lvim.lsp.manager").setup("tsserver", tsserver_opts)
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 -- -`:LvimInfo` lists which server(s) are skiipped for the current filetype
@@ -205,7 +213,7 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
     command = "prettier",
-    args = {},
+    args = { "--end-of-line=auto" },
     filetypes = { "typescript" },
   },
   {
@@ -225,7 +233,7 @@ end
 -- -- set additional linters
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
-  -- { command = "flake8", filetypes = { "python" } },
+  { command = "flake8", filetypes = { "python" } },
   { command = "eslint", filetypes = { "vue", "typescript" } },
   -- {
   --   -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
@@ -261,7 +269,22 @@ lvim.plugins = {
     end,
   },
   { "mg979/vim-visual-multi" },
-  { "ap/vim-css-color" }
+  { "ap/vim-css-color" },
+  {
+    "phaazon/hop.nvim",
+    event = "BufRead",
+    config = function()
+      require("hop").setup()
+      vim.api.nvim_set_keymap("n", "S", ":HopChar2<cr>", { silent = true })
+      -- vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+    end,
+  },
+  {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end,
+  },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
