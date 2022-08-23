@@ -275,8 +275,8 @@ lvim.plugins = {
     event = "BufRead",
     config = function()
       require("hop").setup()
-      vim.api.nvim_set_keymap("n", "S", ":HopChar2<cr>", { silent = true })
-      -- vim.api.nvim_set_keymap("n", "S", ":HopWord<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "t", ":HopChar2<cr>", { silent = true })
+      vim.api.nvim_set_keymap("n", "T", ":HopWord<cr>", { silent = true })
     end,
   },
   {
