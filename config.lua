@@ -144,7 +144,7 @@ lvim.lsp.automatic_servers_installation = true
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 -- see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 -- check the lspconfig documentation for a list of all possible options
-vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "volar" })
+-- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver" })
 local volar_opts = {
   documentFeatures = {
     documentColor = true,
@@ -157,34 +157,35 @@ local volar_opts = {
     selectionRange = true
   },
   languageFeatures = {
-    -- callHierarchy = true,
-    -- codeAction = true,
-    -- codeLens = true,
+    callHierarchy = true,
+    codeAction = true,
+    codeLens = true,
     completion = {
       defaultAttrNameCase = "kebabCase",
       defaultTagNameCase = "both"
     },
-    --   definition = true,
+    definition = true,
     diagnostics = true,
-    --   documentHighlight = true,
+    documentHighlight = true,
     documentLink = true,
     hover = true,
-    --   implementation = true,
+    implementation = true,
     references = true,
-    --   rename = true,
-    --   renameFileRefactoring = true,
-    --   schemaRequestService = true,
-    --   semanticTokens = false,
-    --   signatureHelp = true,
+    rename = true,
+    renameFileRefactoring = true,
+    schemaRequestService = true,
+    semanticTokens = false,
+    signatureHelp = true,
     typeDefinition = true
-    -- },
-    -- typescript = {
-    --   serverPath = ""
+    --     -- typescript = {
+    --     --   serverPath = ""
+    --     -- }
   }
 }
-require("lvim.lsp.manager").setup("volar", volar_opts)
+-- require("lvim.lsp.manager").setup("volar", volar_opts)
+require 'lspconfig'.volar.setup {} -- TODO: if enable this, mefarm-frontend will formet error, but .ts file will work
 
-require 'lspconfig'.tsserver.setup {}  -- TODO: if enable this, mefarm-frontend will formet error, but .ts file will work
+require 'lspconfig'.tsserver.setup {} -- TODO: if enable this, mefarm-frontend will formet error, but .ts file will work
 local tsserver_opts = {
   cmd = { "typescript-language-server" },
   filetype = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
@@ -261,13 +262,13 @@ lvim.plugins = {
   },
   { "fatih/vim-go" },
   { "preservim/tagbar" },
-  {
-    "folke/todo-comments.nvim",
-    event = "BufRead",
-    config = function()
-      require("todo-comments").setup()
-    end,
-  },
+  -- {
+  --   "folke/todo-comments.nvim",
+  --   event = "BufRead",
+  --   config = function()
+  --     require("todo-comments").setup()
+  --   end,
+  -- },
   { "mg979/vim-visual-multi" },
   { "ap/vim-css-color" },
   {
