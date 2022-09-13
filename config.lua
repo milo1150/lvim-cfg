@@ -271,7 +271,6 @@ lvim.plugins = {
   --     require("todo-comments").setup()
   --   end,
   -- },
-  { "mg979/vim-visual-multi" },
   { "ap/vim-css-color" },
   {
     "phaazon/hop.nvim",
@@ -282,12 +281,13 @@ lvim.plugins = {
       vim.api.nvim_set_keymap("n", "T", ":HopWord<cr>", { silent = true })
     end,
   },
-  {
-    "windwp/nvim-ts-autotag",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end,
-  },
+  { "mg979/vim-visual-multi" },
+  -- {
+  --   "windwp/nvim-ts-autotag",
+  --   config = function()
+  --     require("nvim-ts-autotag").setup()
+  --   end,
+  -- },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
