@@ -146,47 +146,9 @@ lvim.lsp.automatic_servers_installation = true
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 -- see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
 -- check the lspconfig documentation for a list of all possible options
--- vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tsserver" })
-local volar_opts = {
-  documentFeatures = {
-    documentColor = true,
-    documentFormatting = {
-      defaultPrintWidth = 40
-    },
-    documentSymbol = true,
-    foldingRange = true,
-    linkedEditingRange = true,
-    selectionRange = true
-  },
-  languageFeatures = {
-    callHierarchy = true,
-    codeAction = true,
-    codeLens = true,
-    completion = {
-      defaultAttrNameCase = "kebabCase",
-      defaultTagNameCase = "both"
-    },
-    definition = true,
-    diagnostics = true,
-    documentHighlight = true,
-    documentLink = true,
-    hover = true,
-    implementation = true,
-    references = true,
-    rename = true,
-    renameFileRefactoring = true,
-    schemaRequestService = true,
-    semanticTokens = false,
-    signatureHelp = true,
-    typeDefinition = true
-    --     -- typescript = {
-    --     --   serverPath = ""
-    --     -- }
-  }
-}
--- require("lvim.lsp.manager").setup("volar", volar_opts)
-require 'lspconfig'.volar.setup {} -- TODO: if enable this, mefarm-frontend will formet error, but .ts file will work
+vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "tailwindcss" })
 
+require 'lspconfig'.volar.setup {} -- TODO: if enable this, mefarm-frontend will formet error, but .ts file will work
 require 'lspconfig'.tsserver.setup {} -- TODO: if enable this, mefarm-frontend will formet error, but .ts file will work
 local tsserver_opts = {
   cmd = { "typescript-language-server" },
@@ -237,7 +199,8 @@ end
 local linters = require "lvim.lsp.null-ls.linters"
 linters.setup {
   { command = "flake8", filetypes = { "python" } },
-  { command = "eslint", filetypes = { "vue", "typescript" } },
+  { command = "eslint", filetypes = { "vue", "typescript" },
+  }
   -- {
   --   -- each linter accepts a list of options identical to https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#Configuration
   --   command = "shellcheck",
